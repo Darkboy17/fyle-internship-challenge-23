@@ -1,43 +1,109 @@
-# Fyle Frontend Challenge
+# GitHub Repository Viewer/Scraper
 
-## Who is this for?
+This project is a GitHub Repository Viewer that allows users to search for GitHub users and view their repositories with pagination. Users can select the number of repositories to display per page, and navigate through the pages. The application uses Angular and integrates with the GitHub API to fetch user data and repositories.
 
-This challenge is meant for candidates who wish to intern at Fyle and work with our engineering team. The candidate should be able to commit to at least 6 months of dedicated time for internship.
+## Table of Contents
 
-## Why work at Fyle?
+-   [Features](#features)
+-   [Prerequisites](#prerequisites)
+-   [Installation](#installation)
+-   [Running the Application](#running-the-application)
+-   [Running Tests](#running-tests)
+-   [Usage](#usage)
+-   [API Rate Limiting](#api-rate-limiting)
+-   [Acknowledgements](#acknowledgements)
+-   [Notes for Developers](#notes-for-developers)
 
-Fyle is a fast-growing Expense Management SaaS product. We are ~40 strong engineering team at the moment. 
+## Features
 
-We are an extremely transparent organization. Check out our [careers page](https://careers.fylehq.com) that will give you a glimpse of what it is like to work at Fyle. Also, check out our Glassdoor reviews [here](https://www.glassdoor.co.in/Reviews/Fyle-Reviews-E1723235.htm). You can read stories from our teammates [here](https://stories.fylehq.com).
+-   Search for GitHub users
+-   View user profile information
+-   View paginated list of repositories
+-   Select the number of repositories to display per page
+-   Caching of repositories to minimize API calls
+-   Skeleton loaders during API calls
+-   Error handling with Toastr notifications
 
-## Challenge outline
+## Prerequisites
 
-This challenge involves implementing application using github api. 
+Before you begin, ensure you have met the following requirements:
 
-The services that you need to use are already implemented - check out ApiService.
-
-You can see details of this challenge [here](https://fyleuniverse.notion.site/fyleuniverse/Fyle-Frontend-development-challenge-cb5085e5e0864e769e7b98c694400aaa)
-
-__Note__ - This challenge is in angular. We work on angular frameworks & after you join we expect the same from you. Hence it is required to complete this assignement in angular itself.
-
-## What happens next?
-
-You will hear back within 48 hours from us via email.
+-   You have installed Node.js (version 14 or later)
+-   You have installed Angular CLI (version 11 or later)
+-   You have a GitHub account for API access
 
 ## Installation
 
-1. Fork this repository to your github account.
-2. Clone the forked repository and proceed with steps mentioned below.
+Follow these steps to install the application and its dependencies:
 
-### Install requirements
-* Install angular cli [Ref](https://angular.io/cli)
-* `npm install` in this repository 
+1.  **Clone the repository**:
+	
+		git clone https://github.com/your-username/github-repo-viewer.git
+		cd github-repo-viewer
+		
+2. **Install dependencies**:
 
-## Development server
+		npm install
 
-Run `ng serve` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+## Running the Application
 
-## Further help
+To run the application locally, follow these steps:
 
-Visit the [Angular Documentation](https://angular.io/guide/styleguide) to learn more.
-Styling is to be strictly done with [Tailwind](https://tailwindcss.com/docs/installation).
+1.  **Start the development server**:
+
+		ng serve
+
+2. **Open your browser** and navigate to:
+
+	```arduino
+	http://localhost:4200
+	```
+
+## Running Tests
+
+To run unit tests and ensure code coverage, use the following commands:
+
+1.  **Run all tests**:
+
+		ng test
+
+2.  **Run tests with code coverage**:
+
+		ng test --code-coverage
+
+3. **Check coverage report**: After running the tests, open the generated coverage report in your browser. It can be found under the path: 
+
+		/fyle-internship-challenge-23/coverage/
+
+## Usage
+
+1.  **Search for a GitHub User**:
+    
+    -   Enter the GitHub username in the search box.
+    -   Click the "Search" button to fetch user details and repositories.
+2.  **View Repositories**:
+    
+    -   Repositories are displayed in a paginated view.
+    -   Use the pagination controls at the bottom to navigate through pages.
+3.  **Select Number of Repositories per Page**:
+    
+    -   Use the dropdown menu to select how many repositories to display per page.
+    -   The available options are 10, 20, 50, and 100.
+
+## API Rate Limiting
+
+GitHub imposes rate limits on API calls. If you exceed the rate limit, you will see a Toastr notification indicating the rate limit has been exceeded. To avoid this, minimize frequent searches and navigation.
+
+## Acknowledgements
+
+-   This project uses the [GitHub API](https://developer.github.com/v3/).
+-   Skeleton loaders are implemented using [Tailwind CSS](https://tailwindcss.com/).
+-   Toastr notifications are implemented using [ngx-toastr](https://github.com/scttcper/ngx-toastr).
+
+## Notes for Developers
+
+### Directory Structure
+
+-   **src/app/components**: Contains all the Angular components.
+-   **src/app/services**: Contains the service for API calls.
+
