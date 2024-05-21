@@ -1,0 +1,105 @@
+<div class="container mx-auto p-4">
+  <h1 class="text-3xl font-bold mb-4 text-center">GitHub Repositories Scraper</h1>
+
+  <!-- Search Section -->
+  <div class="mb-6 flex justify-center">
+    <input type="text" [(ngModel)]="username" placeholder="Enter GitHub Username"
+      class="p-3 text-xl border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" appAlphaNumeric />
+    <button (click)="onSearch()"
+      class="ml-2 px-4 py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+      Search
+    </button>
+  </div>
+
+  <!-- User Info with Skeleton Loader -->
+  <div *ngIf="isLoadingUser; else userInfoContent" class="animate-pulse">
+    <div class="flex items-center mb-6 ml-5">
+      <div
+        class="rounded-full overflow-hidden border border-gray-300 w-20 h-20 flex items-center justify-center bg-gray-300">
+      </div>
+      <div class="ml-4">
+        <div class="h-6 bg-gray-300 rounded w-32 mb-2"></div>
+        <div class="h-4 bg-gray-300 rounded w-48 mb-2"></div>
+        <div class="h-4 bg-gray-300 rounded w-40 mb-2"></div>
+        <div class="h-4 bg-gray-300 rounded w-24"></div>
+      </div>
+    </div>
+  </div>
+  <ng-template #userInfoContent>
+    <ng-container *ngIf="repositories && repositories.length > 0">
+      <div class="flex items-center mb-6 ml-5">
+        <!-- Circular holder for user's image -->
+        <div class="rounded-full overflow-hidden border border-gray-300 w-20 h-20 flex items-center justify-center">
+          <img [src]="userData.avatar_url" alt="No Image found" class="w-full h-auto">
+        </div>
+        <div class="ml-4">
+          <!-- User's name -->
+          <h2 class="text-xl font-semibold">{{ userData.name}}</h2>
+          <!-- User's bio -->
+          <p class="text-gray-600">{{userData.bio || 'No Bio found'}}</p>
+          <!-- User's location -->
+          <p class="text-gray-600">{{userData.location || 'No location found'}}</p>
+          <!-- User's Twitter handle -->
+          <p class="text-gray-600">{{userData.twitter || 'No twitter link found'}}</p>
+        </div>
+
+      </div>
+      <div class="mt-1 ml-5 mb-6">
+        {{userData.html_url}}
+      </div>
+    </ng-container>
+  </ng-template>
+
+  <!-- Repository Section with Skeleton Loaders -->
+  <div *ngIf="isLoadingRepo; else repoContent" class="animate-pulse">
+    <div class="mt-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+        <ng-container *ngFor="let placeholder of placeholderArray">
+          <div class="p-2 bg-white rounded-lg shadow">
+            <div class="space-y-4">
+              <div class="bg-gray-300 h-6 w-3/4 rounded mb-2"></div>
+              <div class="bg-gray-300 h-4 w-full rounded mb-2"></div>
+              <div class="bg-gray-300 h-4 w-1/2 rounded"></div>
+              <div class="bg-gray-300 h-6 w-1/4 rounded mt-2"></div> <!-- Language tag skeleton -->
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <ng-template #repoContent></ng-template>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2" *ngIf="!isLoadingRepo">
+    <!-- Card for each repository -->
+    <div *ngFor="let repo of repositories" class="p-2 bg-white rounded-lg shadow hover:bg-gray-100">
+      <a [href]="repo.html_url" target="_blank" class="text-lg font-semibold text-blue-600 hover:underline">
+        {{ repo.name }}
+      </a>
+      <p class="text-gray-600">{{ repo.description }}</p>
+      <p *ngIf="repo.language" class="inline-block bg-blue-500 text-white px-2 py-1 mt-2 ml-2 rounded-md">{{
+        repo.language }}</p>
+    </div>
+  </div>
+
+  <!-- Pagination Controls -->
+  <div class="flex justify-center items-center mt-4" *ngIf="totalItems > pageSize && !isLoadingRepo">
+    <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1"
+      class="p-2 bg-gray-300 rounded-md">Previous</button>
+    <div class="mx-2">
+      <ng-container *ngFor="let page of pages">
+        <button (click)="onPageChange(page)" [class.bg-blue-500]="page === currentPage"
+          class="mx-1 p-2 border rounded-md">{{ page }}</button>
+      </ng-container>
+    </div>
+    <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === totalPages"
+      class="p-2 bg-gray-300 rounded-md">Next</button>
+  </div>
+
+  <!-- Page Size Control -->
+  <div class="flex justify-center items-center mt-4" *ngIf="totalItems">
+    <div>
+      <label for="pageSize">Repositories per page:</label>
+      <select id="pageSize" class="p-2 border rounded-md" [(ngModel)]="pageSize" (change)="onPageSizeChange(pageSize)">
+        <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>
+      </select>
+    </div>
+</div>
