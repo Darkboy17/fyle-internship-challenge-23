@@ -30,7 +30,7 @@ Before you begin, ensure you have met the following requirements:
 
 -   You have installed Node.js (version 14 or later)
 -   You have installed Angular CLI (version 11 or later)
--   You have a GitHub account for API access
+-   You have a GitHub account for API access or known Github account names like 'papajohn'
 
 ## Installation
 
