@@ -36,7 +36,7 @@ Before you begin, ensure you have met the following requirements:
 
 Follow these steps to install the application and its dependencies:
 
-1.  **Clone the repository**:
+1.  **Fork the repository to your account and then Clone the repository**:
 	
 		git clone https://github.com/your-username/github-repo-viewer.git
 		cd github-repo-viewer
